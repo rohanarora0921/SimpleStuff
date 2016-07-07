@@ -7,7 +7,7 @@ import java.util.Queue;
 
 public class BFSTraversal {
 
-	BinaryNode root;
+	BinaryNode root;		//temporary node holder for traversal and other purposes
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -24,21 +24,21 @@ public class BFSTraversal {
 	public static BinaryNode add(BinaryNode node, int data) {
 		
 				
-		if(node==null)
+		if(node==null)								//in case this is the first node to be added
 		{
-			node=new BinaryNode(data);
+			node=new BinaryNode(data);		//constructor of BinaryNode called to store data and return a new node
 						
 		}
 		else {
 			///IF not 1st element, flow enters this part
-			if(node.left==null && node.right==null)
+			if(node.left==null && node.right==null)				//checks if both children are missing, and if yes, left position is chosen over right to be added to
 			{
 				node.left=add(node.right,data);
 			}
-			else if (node.right == null) {
+			else if (node.right == null) {							//in case both children are not null, and if left is taken, check for right child's existence
 				node.right=add(node.right, data);
 				
-			} else {
+			} else {															//if all else fails, insert in left child
 				node.left=add(node.left, data);
 				
 			} 
@@ -103,14 +103,14 @@ public class BFSTraversal {
 	private void bfs(BinaryNode node) {
 		// TODO Auto-generated method stub
 		Queue<BinaryNode> q = new ArrayDeque<>();
-		q.add(node);
-		while(!q.isEmpty())
+		q.add(node);				//adds first node to the queue for BFS
+		while(!q.isEmpty())		//until stack is empty, i.e. until the entire tree is traversed
 		{
-			BinaryNode temp = q.poll();
+			BinaryNode temp = q.poll();		//take the first node in queue, and check its validity
 			if(temp==null) return;
-			System.out.println(temp.data);
-			if(temp.left!=null) q.offer(temp.left);
-			if(temp.right!=null) q.offer(temp.right);
+			System.out.println(temp.data);			//print current parents data 
+			if(temp.left!=null) q.offer(temp.left);	//offer current parents left node in queue
+			if(temp.right!=null) q.offer(temp.right);	//offer current parents right node in queue
 			
 		}
 		
